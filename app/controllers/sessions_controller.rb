@@ -1,11 +1,11 @@
-class SessionController < ApplicationController
+class SessionsController < ApplicationController
   before_action :set_session, :only => [:destroy]
   skip_before_action :authenticate_user_from_token
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
-      @session = Session.create(access_token: new_session_token)
+      @session = Session.create(user_id: user.id, access_token: new_session_token)
       render json: { session: @session }, status: :ok
     else
       render json: { errors: 'Invalid credentials' }, status: :unauthorized
