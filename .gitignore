@@ -24,3 +24,12 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/db/*.sqlite3
+/log/*.log
+/tmp
+config/database.yml
+config/google_analytics.yml
+.DS_Store
+/nbproject/
+public/assets/**
