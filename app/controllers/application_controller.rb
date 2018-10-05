@@ -1,17 +1,24 @@
 class ApplicationController < ActionController::Base
-	helper_method :current_user
 
-	def authenticate
-  		redirect_to :login unless user_signed_in?
-  	end
+  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user_from_token
 
-  	def current_user
-	  	@current_user ||= User.find(session[:user_id]) if session[:user_id]
-	end
+  def authenticate_user_from_token
+    auth_token = request.headers['Authorization']
+    if auth_token
+      authenticate_with_auth_token(auth_token)
+    else
+      authentication_error
+    end
+  end
 
-	def user_signed_in?
-		# converts current_user to a boolean by negating the negation
-	 	!!current_user
-	end
+  def authentication_error
+    head :unauthorized
+  end
+
+  def authenticate_with_auth_token(auth_token)
+    session = Session.where(access_token: auth_token).first
+    authentication_error if !session
+  end
 
 end

@@ -1,13 +1,13 @@
 class User < ApplicationRecord
-	def self.find_or_create_from_auth_hash(auth)
-		where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
-			user.provider = auth.provider
-			user.uid = auth.uid
-			user.first_name = auth.info.first_name
-			user.last_name = auth.info.last_name
-			user.email = auth.info.email
-			user.picture = auth.info.image
-			user.save!
-		end
-	end
+	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+	before_save { self.email = email.downcase }
+
+	validates :name, presence: true
+	validates :group, presence: true
+	validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: {case_sensitive: false}
+
+	has_secure_password
+	validates :password, presence: true, length: { minimum: 6 }
+
 end
