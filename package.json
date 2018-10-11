@@ -1,5 +1,7 @@
 {
   "name": "score",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "superagent": "^4.0.0-beta.5"
+  }
 }

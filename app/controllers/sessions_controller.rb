@@ -6,9 +6,10 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       @session = Session.create(user_id: user.id, access_token: new_session_token)
-      render json: { session: @session }, status: :ok
+
+      render json: { session: @session, user: user }, status: :ok
     else
-      render json: { errors: 'Invalid credentials' }, status: :unauthorized
+      render json: { errors: ['Invalid credentials'] }, status: :unauthorized
     end
   end
 

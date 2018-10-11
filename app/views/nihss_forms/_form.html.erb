@@ -1,0 +1,17 @@
+<%= form_with(model: nihss_form, local: true) do |form| %>
+  <% if nihss_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(nihss_form.errors.count, "error") %> prohibited this nihss_form from being saved:</h2>
+
+      <ul>
+      <% nihss_form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
