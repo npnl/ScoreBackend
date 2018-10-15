@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_194308) do
+ActiveRecord::Schema.define(version: 2018_10_15_180646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "fma_form_rows", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.date "date"
+    t.string "category"
+    t.string "posture"
+    t.string "movement"
+    t.string "extremity"
+    t.integer "score"
+    t.integer "item_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_fma_form_rows_on_subject_id"
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
@@ -61,8 +75,23 @@ ActiveRecord::Schema.define(version: 2018_10_05_194308) do
     t.index ["group_id"], name: "index_users_on_group_id"
   end
 
+  create_table "wmft_form_rows", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.date "date"
+    t.string "task"
+    t.string "time"
+    t.string "fas_score"
+    t.string "arm_type"
+    t.integer "item_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_wmft_form_rows_on_subject_id"
+  end
+
+  add_foreign_key "fma_form_rows", "subjects"
   add_foreign_key "nihss_form_rows", "subjects"
   add_foreign_key "sessions", "users"
   add_foreign_key "subjects", "groups"
   add_foreign_key "users", "groups"
+  add_foreign_key "wmft_form_rows", "subjects"
 end

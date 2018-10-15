@@ -1,0 +1,2 @@
+module WmftFormHelper
+end

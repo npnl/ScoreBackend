@@ -5,8 +5,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user_from_token
     auth_token = request.headers['Authorization']
-    if auth_token
-      authenticate_with_auth_token(auth_token)
+    if auth_token && authenticate_with_auth_token(auth_token) && !@session.nil?
       @current_user = @session.user
       @current_group = @current_user.group
     else
@@ -20,7 +19,6 @@ class ApplicationController < ActionController::Base
 
   def authenticate_with_auth_token(auth_token)
     @session = Session.where(access_token: auth_token).first
-    authentication_error if !@session
   end
 
 end

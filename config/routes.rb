@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   resources :subjects
   resources :groups
   resources :nihss_form
+  resources :fma_form
+  resources :wmft_form
 end
