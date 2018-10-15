@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_180646) do
+ActiveRecord::Schema.define(version: 2018_10_15_185904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "armtest_form_rows", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.date "date"
+    t.string "type"
+    t.string "activity"
+    t.string "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_armtest_form_rows_on_subject_id"
+  end
 
   create_table "fma_form_rows", force: :cascade do |t|
     t.bigint "subject_id"
@@ -88,6 +99,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_180646) do
     t.index ["subject_id"], name: "index_wmft_form_rows_on_subject_id"
   end
 
+  add_foreign_key "armtest_form_rows", "subjects"
   add_foreign_key "fma_form_rows", "subjects"
   add_foreign_key "nihss_form_rows", "subjects"
   add_foreign_key "sessions", "users"

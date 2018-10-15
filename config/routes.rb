@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :nihss_form
   resources :fma_form
   resources :wmft_form
+  resources :armtest_form
 end
