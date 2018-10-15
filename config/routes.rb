@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   resources :barthel_form
   resources :mmt_form
   resources :mas_form
+  resources :mrs_form
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_200505) do
+ActiveRecord::Schema.define(version: 2018_10_15_201946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,15 @@ ActiveRecord::Schema.define(version: 2018_10_15_200505) do
     t.index ["subject_id"], name: "index_mmt_form_rows_on_subject_id"
   end
 
+  create_table "mrs_form_rows", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.date "date"
+    t.string "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_mrs_form_rows_on_subject_id"
+  end
+
   create_table "nihss_form_rows", force: :cascade do |t|
     t.bigint "subject_id"
     t.date "date"
@@ -136,6 +145,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_200505) do
   add_foreign_key "fma_form_rows", "subjects"
   add_foreign_key "mas_form_rows", "subjects"
   add_foreign_key "mmt_form_rows", "subjects"
+  add_foreign_key "mrs_form_rows", "subjects"
   add_foreign_key "nihss_form_rows", "subjects"
   add_foreign_key "sessions", "users"
   add_foreign_key "subjects", "groups"
