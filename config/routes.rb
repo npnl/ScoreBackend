@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   resources :mmt_form
   resources :mas_form
   resources :mrs_form
+  resources :sis_form
 end

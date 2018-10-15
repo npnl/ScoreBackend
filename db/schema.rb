@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_201946) do
+ActiveRecord::Schema.define(version: 2018_10_15_203511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,16 @@ ActiveRecord::Schema.define(version: 2018_10_15_201946) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "sis_form_rows", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.date "date"
+    t.string "question_id"
+    t.string "selected_option"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_sis_form_rows_on_subject_id"
+  end
+
   create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.bigint "group_id"
@@ -148,6 +158,7 @@ ActiveRecord::Schema.define(version: 2018_10_15_201946) do
   add_foreign_key "mrs_form_rows", "subjects"
   add_foreign_key "nihss_form_rows", "subjects"
   add_foreign_key "sessions", "users"
+  add_foreign_key "sis_form_rows", "subjects"
   add_foreign_key "subjects", "groups"
   add_foreign_key "users", "groups"
   add_foreign_key "wmft_form_rows", "subjects"
