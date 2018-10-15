@@ -29,6 +29,6 @@ class ArmtestFormController < ApplicationController
   end
 
   def armtest_row_params(row_params)
-    row_params.permit(:task, :time, :fas_score, :arm_type, :item_no)
+    row_params.permit(:type, :activity, :score)
   end
 end

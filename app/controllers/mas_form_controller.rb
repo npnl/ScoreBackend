@@ -1,15 +1,15 @@
-class BarthelFormController < ApplicationController
+class MasFormController < ApplicationController
   before_action :set_subject_and_date, only: [:create]
 
   def index
-    @barthel_form_rows = BarthelFormRow.all
-    render json: @barthel_form_rows, status: :ok
+    @mas_form_rows = MasFormRow.all
+    render json: @mas_form_rows, status: :ok
   end
 
   def create
-    params['barthel_form_rows'].each do |barthel_row|
-      allowed_row_params = barthel_row_params(barthel_row)
-      row = BarthelFormRow.new(allowed_row_params)
+    params['mas_form_rows'].each do |mas_row|
+      allowed_row_params = mas_row_params(mas_row)
+      row = MasFormRow.new(allowed_row_params)
       row.subject = @subject
       row.date = @date
       if !row.save
@@ -28,7 +28,7 @@ class BarthelFormController < ApplicationController
     render json: { errors: ['Unable to find or create this given subject']  }, status: :not_found if @subject.nil?
   end
 
-  def barthel_row_params(row_params)
-    row_params.permit(:activity, :score, :description)
+  def mas_row_params(row_params)
+    row_params.permit(:muscle_name, :score)
   end
 end

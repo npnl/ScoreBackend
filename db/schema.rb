@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_193512) do
+ActiveRecord::Schema.define(version: 2018_10_15_200505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,27 @@ ActiveRecord::Schema.define(version: 2018_10_15_193512) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "mas_form_rows", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.date "date"
+    t.string "muscle_name"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_mas_form_rows_on_subject_id"
+  end
+
+  create_table "mmt_form_rows", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.date "date"
+    t.string "muscle_name"
+    t.integer "mmt_score"
+    t.integer "rom_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subject_id"], name: "index_mmt_form_rows_on_subject_id"
   end
 
   create_table "nihss_form_rows", force: :cascade do |t|
@@ -113,6 +134,8 @@ ActiveRecord::Schema.define(version: 2018_10_15_193512) do
   add_foreign_key "armtest_form_rows", "subjects"
   add_foreign_key "barthel_form_rows", "subjects"
   add_foreign_key "fma_form_rows", "subjects"
+  add_foreign_key "mas_form_rows", "subjects"
+  add_foreign_key "mmt_form_rows", "subjects"
   add_foreign_key "nihss_form_rows", "subjects"
   add_foreign_key "sessions", "users"
   add_foreign_key "subjects", "groups"

@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :wmft_form
   resources :armtest_form
   resources :barthel_form
+  resources :mmt_form
+  resources :mas_form
 end
