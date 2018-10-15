@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :fma_form
   resources :wmft_form
   resources :armtest_form
+  resources :barthel_form
 end
