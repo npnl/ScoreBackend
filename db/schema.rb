@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_203511) do
+ActiveRecord::Schema.define(version: 2018_10_16_191709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,12 +18,29 @@ ActiveRecord::Schema.define(version: 2018_10_15_203511) do
   create_table "armtest_form_rows", force: :cascade do |t|
     t.bigint "subject_id"
     t.date "date"
-    t.string "type"
+    t.string "arm_type"
     t.string "activity"
     t.string "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assessment_id"
+    t.index ["assessment_id"], name: "index_armtest_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_armtest_form_rows_on_subject_id"
+  end
+
+  create_table "assessments", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.boolean "nihss"
+    t.boolean "fma"
+    t.boolean "wmft"
+    t.boolean "sis"
+    t.boolean "mrs"
+    t.boolean "mas"
+    t.boolean "mmt"
+    t.boolean "barthel"
+    t.boolean "arm"
+    t.string "date"
+    t.index ["subject_id"], name: "index_assessments_on_subject_id"
   end
 
   create_table "barthel_form_rows", force: :cascade do |t|
@@ -34,6 +51,8 @@ ActiveRecord::Schema.define(version: 2018_10_15_203511) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assessment_id"
+    t.index ["assessment_id"], name: "index_barthel_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_barthel_form_rows_on_subject_id"
   end
 
@@ -48,6 +67,8 @@ ActiveRecord::Schema.define(version: 2018_10_15_203511) do
     t.integer "item_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assessment_id"
+    t.index ["assessment_id"], name: "index_fma_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_fma_form_rows_on_subject_id"
   end
 
@@ -64,6 +85,8 @@ ActiveRecord::Schema.define(version: 2018_10_15_203511) do
     t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assessment_id"
+    t.index ["assessment_id"], name: "index_mas_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_mas_form_rows_on_subject_id"
   end
 
@@ -75,6 +98,8 @@ ActiveRecord::Schema.define(version: 2018_10_15_203511) do
     t.integer "rom_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assessment_id"
+    t.index ["assessment_id"], name: "index_mmt_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_mmt_form_rows_on_subject_id"
   end
 
@@ -84,6 +109,8 @@ ActiveRecord::Schema.define(version: 2018_10_15_203511) do
     t.string "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assessment_id"
+    t.index ["assessment_id"], name: "index_mrs_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_mrs_form_rows_on_subject_id"
   end
 
@@ -96,6 +123,8 @@ ActiveRecord::Schema.define(version: 2018_10_15_203511) do
     t.integer "item_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assessment_id"
+    t.index ["assessment_id"], name: "index_nihss_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_nihss_form_rows_on_subject_id"
   end
 
@@ -114,6 +143,8 @@ ActiveRecord::Schema.define(version: 2018_10_15_203511) do
     t.string "selected_option"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assessment_id"
+    t.index ["assessment_id"], name: "index_sis_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_sis_form_rows_on_subject_id"
   end
 
@@ -147,19 +178,31 @@ ActiveRecord::Schema.define(version: 2018_10_15_203511) do
     t.integer "item_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assessment_id"
+    t.index ["assessment_id"], name: "index_wmft_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_wmft_form_rows_on_subject_id"
   end
 
+  add_foreign_key "armtest_form_rows", "assessments"
   add_foreign_key "armtest_form_rows", "subjects"
+  add_foreign_key "assessments", "subjects"
+  add_foreign_key "barthel_form_rows", "assessments"
   add_foreign_key "barthel_form_rows", "subjects"
+  add_foreign_key "fma_form_rows", "assessments"
   add_foreign_key "fma_form_rows", "subjects"
+  add_foreign_key "mas_form_rows", "assessments"
   add_foreign_key "mas_form_rows", "subjects"
+  add_foreign_key "mmt_form_rows", "assessments"
   add_foreign_key "mmt_form_rows", "subjects"
+  add_foreign_key "mrs_form_rows", "assessments"
   add_foreign_key "mrs_form_rows", "subjects"
+  add_foreign_key "nihss_form_rows", "assessments"
   add_foreign_key "nihss_form_rows", "subjects"
   add_foreign_key "sessions", "users"
+  add_foreign_key "sis_form_rows", "assessments"
   add_foreign_key "sis_form_rows", "subjects"
   add_foreign_key "subjects", "groups"
   add_foreign_key "users", "groups"
+  add_foreign_key "wmft_form_rows", "assessments"
   add_foreign_key "wmft_form_rows", "subjects"
 end

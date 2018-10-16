@@ -12,6 +12,7 @@ class NihssFormController < ApplicationController
       row = NihssFormRow.new(allowed_row_params)
       row.subject = @subject
       row.date = @date
+      row.assessment = @assessment
       if !row.save
         row.valid?
         render json: { errors: row.errors.full_messages }, status: :unprocessable_entity
@@ -22,13 +23,14 @@ class NihssFormController < ApplicationController
 
   private
 
-    def set_subject_and_date
-      @subject = Subject.where(name: params[:subject_name], group: @current_group).first_or_create
-      @date = params[:assessment_date]
-      render json: { errors: ['Unable to find or create this given subject']  }, status: :not_found if @subject.nil?
+  def mark_assessment
+    if !@subject.nil?
+      Assessment.find_or_initialize_by(:subject => @subject, :date => @date).update_attributes!(:nihss => true)
+      @assessment = Assessment.find_by(:subject => @subject, :date => @date)
     end
+  end
 
-    def nihss_row_params(row_params)
-      row_params.permit(:domain, :specific, :fas_score, :item_no)
-    end
+  def nihss_row_params(row_params)
+    row_params.permit(:domain, :specific, :fas_score, :item_no)
+  end
 end

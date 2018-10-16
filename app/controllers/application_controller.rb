@@ -21,4 +21,11 @@ class ApplicationController < ActionController::Base
     @session = Session.where(access_token: auth_token).first
   end
 
+  def set_subject_and_date
+    @subject = Subject.where(name: params[:subject_name], group: @current_group).first_or_create
+    @date = params[:assessment_date]
+    mark_assessment
+    render json: { errors: ['Unable to find or create this given subject']  }, status: :not_found if @subject.nil?
+  end
+
 end

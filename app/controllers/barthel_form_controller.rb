@@ -12,6 +12,7 @@ class BarthelFormController < ApplicationController
       row = BarthelFormRow.new(allowed_row_params)
       row.subject = @subject
       row.date = @date
+      row.assessment = @assessment
       if !row.save
         row.valid?
         render json: { errors: row.errors.full_messages }, status: :unprocessable_entity
@@ -22,10 +23,11 @@ class BarthelFormController < ApplicationController
 
   private
 
-  def set_subject_and_date
-    @subject = Subject.where(name: params[:subject_name], group: @current_group).first_or_create
-    @date = params[:assessment_date]
-    render json: { errors: ['Unable to find or create this given subject']  }, status: :not_found if @subject.nil?
+  def mark_assessment
+    if !@subject.nil?
+      Assessment.find_or_initialize_by(:subject => @subject, :date => @date).update_attributes!(:barthel => true)
+      @assessment = Assessment.find_by(:subject => @subject, :date => @date)
+    end
   end
 
   def barthel_row_params(row_params)
