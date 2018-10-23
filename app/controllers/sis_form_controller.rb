@@ -21,11 +21,19 @@ class SisFormController < ApplicationController
     render json: {message: 'Successfully created records'}, status: :created
   end
 
+  def download_data
+    @results = SisFormRow.where(assessment_id: params[:id])
+    respond_to do |format|
+      format.html
+      format.csv { send_data @results.to_csv, {filename: 'sis.csv', type:'text/csv'} }
+    end
+  end
+
   private
 
   def mark_assessment
     if !@subject.nil?
-      Assessment.find_or_initialize_by(:subject => @subject, :date => @date).update_attributes!(:sis => true)
+      Assessment.find_or_initialize_by(:subject => @subject, :date => @date, user: @current_user).update_attributes!(:sis => true)
       @assessment = Assessment.find_by(:subject => @subject, :date => @date)
     end
   end

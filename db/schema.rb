@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_16_191709) do
+ActiveRecord::Schema.define(version: 2018_10_23_085728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,17 +30,19 @@ ActiveRecord::Schema.define(version: 2018_10_16_191709) do
 
   create_table "assessments", force: :cascade do |t|
     t.bigint "subject_id"
-    t.boolean "nihss"
-    t.boolean "fma"
-    t.boolean "wmft"
-    t.boolean "sis"
-    t.boolean "mrs"
-    t.boolean "mas"
-    t.boolean "mmt"
-    t.boolean "barthel"
-    t.boolean "arm"
+    t.boolean "nihss", default: false
+    t.boolean "fma", default: false
+    t.boolean "wmft", default: false
+    t.boolean "sis", default: false
+    t.boolean "mrs", default: false
+    t.boolean "mas", default: false
+    t.boolean "mmt", default: false
+    t.boolean "barthel", default: false
+    t.boolean "arm", default: false
     t.string "date"
+    t.bigint "user_id"
     t.index ["subject_id"], name: "index_assessments_on_subject_id"
+    t.index ["user_id"], name: "index_assessments_on_user_id"
   end
 
   create_table "barthel_form_rows", force: :cascade do |t|
@@ -76,6 +78,7 @@ ActiveRecord::Schema.define(version: 2018_10_16_191709) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "authentication_code"
   end
 
   create_table "mas_form_rows", force: :cascade do |t|
@@ -186,6 +189,7 @@ ActiveRecord::Schema.define(version: 2018_10_16_191709) do
   add_foreign_key "armtest_form_rows", "assessments"
   add_foreign_key "armtest_form_rows", "subjects"
   add_foreign_key "assessments", "subjects"
+  add_foreign_key "assessments", "users"
   add_foreign_key "barthel_form_rows", "assessments"
   add_foreign_key "barthel_form_rows", "subjects"
   add_foreign_key "fma_form_rows", "assessments"

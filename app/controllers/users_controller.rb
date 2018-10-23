@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 	def create
 		user = User.new(request_params)
 		user.group = @group
-		if params[:user][:authentication_code] != 'MY_TOKEN'
+		if params[:user][:authentication_code] != @group.authentication_code
 			render json: { errors: ['Invalid authentication token. Please contact Prof. Sook Liew'] }, status: :unprocessable_entity
 			return
 		end

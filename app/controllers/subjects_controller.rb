@@ -14,9 +14,28 @@ class SubjectsController < ApplicationController
     end
   end
 
+  def all_subject_info
+    output = prepare_listing
+    render json: output, status: :ok
+  end
+
   private
 
   def subject_params
     params.require(:subject).permit(:name)
+  end
+
+  def prepare_listing
+    output = []
+    @subjects = Subject.where(group_id: @current_group.id)
+    @subjects.each do |subject|
+      assessments = Assessment.where(subject: subject).select(:id, :date, :nihss, :fma, :wmft, :sis, :mrs, :mas, :mmt, :barthel, :arm, :user_id)
+      if !assessments.empty?
+        record = {subject_name: subject.name}
+        record[:assessments] = assessments
+        output.push(record)
+      end
+    end
+    output
   end
 end

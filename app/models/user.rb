@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 	belongs_to :group
+  has_many :assessments
 
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

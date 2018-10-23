@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   root 'home#index'
   post 'login' => 'sessions#create'
   post 'signup' => 'users#create'
+
+  get 'all_subject_info' => 'subjects#all_subject_info'
+
   resources :users
   resources :subjects
   resources :groups
@@ -15,4 +18,14 @@ Rails.application.routes.draw do
   resources :mas_form
   resources :mrs_form
   resources :sis_form
+
+  get 'nihss/assessment/:id/nihss.csv' => 'nihss_form#download_data', defaults: { format: :csv }
+  get 'fma/assessment/:id/fma.csv' => 'fma_form#download_data', defaults: { format: :csv }
+  get 'wmft/assessment/:id/wmft.csv' => 'wmft_form#download_data', defaults: { format: :csv }
+  get 'armtest/assessment/:id/armtest.csv' => 'armtest_form#download_data', defaults: { format: :csv }
+  get 'barthel/assessment/:id/barthel.csv' => 'barthel_form#download_data', defaults: { format: :csv }
+  get 'mmt/assessment/:id/mmt.csv' => 'mmt_form#download_data', defaults: { format: :csv }
+  get 'mas/assessment/:id/mas.csv' => 'mas_form#download_data', defaults: { format: :csv }
+  get 'mrs/assessment/:id/mrs.csv' => 'mrs_form#download_data', defaults: { format: :csv }
+  get 'sis/assessment/:id/sis.csv' => 'sis_form#download_data', defaults: { format: :csv }
 end
