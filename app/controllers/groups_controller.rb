@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
   def create
     group = Group.new(group_params)
     if group.valid? && group.save
-      render json: group.as_json, status: :created
+      render json: {message: 'Successfully created group.'}, status: :created
     else
       render json: { errors: group.errors.full_messages }, status: :unprocessable_entity
     end

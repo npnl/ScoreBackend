@@ -13,4 +13,9 @@ class User < ApplicationRecord
 	has_secure_password
 	validates :password, presence: true, length: { minimum: 6 }, on: :create
 
+
+  def is_admin
+		return self.admin
+	end
+
 end
