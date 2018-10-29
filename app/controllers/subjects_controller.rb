@@ -19,6 +19,20 @@ class SubjectsController < ApplicationController
     render json: output, status: :ok
   end
 
+  def all_subject_names
+    @subjects =  @current_user.is_admin ? Subject.all : Subject.where(group: @current_group)
+    output = []
+    @subjects.each do |subject|
+      assessments = Assessment.where(subject: subject).select(:id, :date, :nihss, :fma, :wmft, :sis, :mrs, :mas, :mmt, :barthel, :arm, :user_id)
+      if !assessments.empty?
+        record = {subject_name: subject.name}
+        record[:assessments] = assessments
+        output.push(record)
+      end
+    end
+    render json: output, status: :ok
+  end
+
   private
 
   def subject_params

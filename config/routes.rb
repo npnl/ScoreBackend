@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post 'signup' => 'users#create'
 
   get 'all_subject_info' => 'subjects#all_subject_info'
+  get 'all_subject_names' => 'subjects#all_subject_names'
 
   resources :users
   resources :subjects
