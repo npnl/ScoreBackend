@@ -39,6 +39,6 @@ class FmaFormController < ApplicationController
   end
 
   def fma_row_params(row_params)
-    row_params.permit(:domain, :specific, :fas_score, :item_no)
+    row_params.permit(:domain, :specific, :item_no, :category, :posture, :movement, :score, :extremity, :comment, :fma_ue_total, :fma_le_total, :fma_sense_total, :fma_total)
   end
 end

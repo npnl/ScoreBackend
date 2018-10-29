@@ -39,6 +39,6 @@ class BarthelFormController < ApplicationController
   end
 
   def barthel_row_params(row_params)
-    row_params.permit(:activity, :score, :description)
+    row_params.permit(:activity, :score, :description, :total_score)
   end
 end

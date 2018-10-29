@@ -39,6 +39,6 @@ class WmftFormController < ApplicationController
   end
 
   def wmft_row_params(row_params)
-    row_params.permit(:task, :time, :fas_score, :arm_type, :item_no)
+    row_params.permit(:task, :time, :fas_score, :arm_type, :item_no, :median_time, :total_fas, :avg_strength, :comment)
   end
 end

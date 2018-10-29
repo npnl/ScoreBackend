@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_23_203629) do
+ActiveRecord::Schema.define(version: 2018_10_29_215747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2018_10_23_203629) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assessment_id"
+    t.integer "total_score"
     t.index ["assessment_id"], name: "index_barthel_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_barthel_form_rows_on_subject_id"
   end
@@ -70,6 +71,11 @@ ActiveRecord::Schema.define(version: 2018_10_23_203629) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assessment_id"
+    t.string "comment"
+    t.integer "fma_ue_total"
+    t.integer "fma_le_total"
+    t.integer "fma_sense_total"
+    t.integer "fma_total"
     t.index ["assessment_id"], name: "index_fma_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_fma_form_rows_on_subject_id"
   end
@@ -127,6 +133,10 @@ ActiveRecord::Schema.define(version: 2018_10_23_203629) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assessment_id"
+    t.integer "loc_total"
+    t.integer "motor_total"
+    t.integer "nihss_total"
+    t.string "comment"
     t.index ["assessment_id"], name: "index_nihss_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_nihss_form_rows_on_subject_id"
   end
@@ -183,6 +193,10 @@ ActiveRecord::Schema.define(version: 2018_10_23_203629) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assessment_id"
+    t.integer "median_time"
+    t.integer "total_fas"
+    t.integer "avg_strength"
+    t.string "comment"
     t.index ["assessment_id"], name: "index_wmft_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_wmft_form_rows_on_subject_id"
   end

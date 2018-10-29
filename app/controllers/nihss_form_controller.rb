@@ -39,6 +39,6 @@ class NihssFormController < ApplicationController
   end
 
   def nihss_row_params(row_params)
-    row_params.permit(:domain, :specific, :fas_score, :item_no)
+    row_params.permit(:domain, :specific, :fas_score, :item_no, :loc_total, :motor_total, :nihss_total, :comment)
   end
 end
