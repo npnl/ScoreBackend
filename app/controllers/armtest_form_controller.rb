@@ -33,8 +33,8 @@ class ArmtestFormController < ApplicationController
 
   def mark_assessment
     if !@subject.nil?
-      Assessment.find_or_initialize_by(:subject => @subject, :date => @date, user: @current_user).update_attributes!(:arm => true)
-      @assessment = Assessment.find_by(:subject => @subject, :date => @date)
+      @assessment = Assessment.find_or_initialize_by(:subject => @subject, :date => @date, user: @current_user, arm: false)
+      @assessment.update_attributes!(arm: true)
     end
   end
 

@@ -29,4 +29,7 @@ Rails.application.routes.draw do
   get 'mas/assessment/:id/mas.csv' => 'mas_form#download_data', defaults: { format: :csv }
   get 'mrs/assessment/:id/mrs.csv' => 'mrs_form#download_data', defaults: { format: :csv }
   get 'sis/assessment/:id/sis.csv' => 'sis_form#download_data', defaults: { format: :csv }
+
+  delete 'destroy_assessment' => 'assessments#destroy'
+  put 'update_comments' => 'assessments#update_comments'
 end

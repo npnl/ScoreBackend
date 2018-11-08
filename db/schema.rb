@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_29_215747) do
+ActiveRecord::Schema.define(version: 2018_11_07_035818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assessment_id"
+    t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_armtest_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_armtest_form_rows_on_subject_id"
   end
@@ -41,6 +42,8 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.boolean "arm", default: false
     t.string "date"
     t.bigint "user_id"
+    t.datetime "deleted_at"
+    t.string "comments"
     t.index ["subject_id"], name: "index_assessments_on_subject_id"
     t.index ["user_id"], name: "index_assessments_on_user_id"
   end
@@ -55,6 +58,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.datetime "updated_at", null: false
     t.bigint "assessment_id"
     t.integer "total_score"
+    t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_barthel_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_barthel_form_rows_on_subject_id"
   end
@@ -76,6 +80,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.integer "fma_le_total"
     t.integer "fma_sense_total"
     t.integer "fma_total"
+    t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_fma_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_fma_form_rows_on_subject_id"
   end
@@ -85,6 +90,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "authentication_code"
+    t.datetime "deleted_at"
   end
 
   create_table "mas_form_rows", force: :cascade do |t|
@@ -95,6 +101,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assessment_id"
+    t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_mas_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_mas_form_rows_on_subject_id"
   end
@@ -108,6 +115,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assessment_id"
+    t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_mmt_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_mmt_form_rows_on_subject_id"
   end
@@ -119,6 +127,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assessment_id"
+    t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_mrs_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_mrs_form_rows_on_subject_id"
   end
@@ -137,6 +146,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.integer "motor_total"
     t.integer "nihss_total"
     t.string "comment"
+    t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_nihss_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_nihss_form_rows_on_subject_id"
   end
@@ -146,6 +156,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.datetime "deleted_at"
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
@@ -157,6 +168,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assessment_id"
+    t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_sis_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_sis_form_rows_on_subject_id"
   end
@@ -166,6 +178,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.bigint "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["group_id"], name: "index_subjects_on_group_id"
   end
 
@@ -179,6 +192,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.string "password_digest"
     t.bigint "group_id"
     t.boolean "admin", default: false
+    t.datetime "deleted_at"
     t.index ["group_id"], name: "index_users_on_group_id"
   end
 
@@ -197,6 +211,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_215747) do
     t.integer "total_fas"
     t.integer "avg_strength"
     t.string "comment"
+    t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_wmft_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_wmft_form_rows_on_subject_id"
   end

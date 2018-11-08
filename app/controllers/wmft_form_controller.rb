@@ -33,8 +33,8 @@ class WmftFormController < ApplicationController
 
   def mark_assessment
     if !@subject.nil?
-      Assessment.find_or_initialize_by(:subject => @subject, :date => @date, user: @current_user).update_attributes!(:wmft => true)
-      @assessment = Assessment.find_by(:subject => @subject, :date => @date)
+      @assessment = Assessment.find_or_initialize_by(:subject => @subject, :date => @date, user: @current_user, wmft: false)
+      @assessment.update_attributes!(wmft: true)
     end
   end
 
