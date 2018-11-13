@@ -33,6 +33,8 @@ class AssessmentsController < ApplicationController
         rows = MmtFormRow.where(assessment: assessment)
       when 'barthel'
         rows = BarthelFormRow.where(assessment: assessment)
+      when 'moca'
+        rows = MocaFormRow.where(assessment: assessment)
       else
         render json: { errors: 'Wrong form type passes to delete'}, status: :unprocessable_entity and return
     end
@@ -40,7 +42,7 @@ class AssessmentsController < ApplicationController
       ApplicationRecord.transaction do
         rows.destroy_all
         assessment.update_attributes!(delete_params[:form_type] => false)
-        empty_assessments = Assessment.where(:nihss => false, :fma => false, :wmft => false, :sis => false, :mrs => false, :mas => false, :mmt => false, :barthel => false, :arm => false)
+        empty_assessments = Assessment.where(:nihss => false, :fma => false, :wmft => false, :sis => false, :mrs => false, :mas => false, :mmt => false, :barthel => false, :arm => false, :moca => false)
         empty_assessments.destroy_all
       end
     rescue ActiveRecord::RecordInvalid

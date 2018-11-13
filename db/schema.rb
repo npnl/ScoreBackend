@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_07_035818) do
+ActiveRecord::Schema.define(version: 2018_11_13_055756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2018_11_07_035818) do
     t.bigint "user_id"
     t.datetime "deleted_at"
     t.string "comments"
+    t.boolean "moca", default: false
     t.index ["subject_id"], name: "index_assessments_on_subject_id"
     t.index ["user_id"], name: "index_assessments_on_user_id"
   end
@@ -118,6 +119,29 @@ ActiveRecord::Schema.define(version: 2018_11_07_035818) do
     t.datetime "deleted_at"
     t.index ["assessment_id"], name: "index_mmt_form_rows_on_assessment_id"
     t.index ["subject_id"], name: "index_mmt_form_rows_on_subject_id"
+  end
+
+  create_table "moca_form_rows", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.bigint "assessment_id"
+    t.date "date"
+    t.integer "visuospatial_executive"
+    t.integer "naming"
+    t.integer "attention_1"
+    t.integer "attention_2"
+    t.integer "attention_3"
+    t.integer "language_1"
+    t.integer "language_2"
+    t.integer "abstraction"
+    t.integer "delayed_recall"
+    t.integer "orientation"
+    t.integer "edu_less_than_12_yrs"
+    t.integer "total_score"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assessment_id"], name: "index_moca_form_rows_on_assessment_id"
+    t.index ["subject_id"], name: "index_moca_form_rows_on_subject_id"
   end
 
   create_table "mrs_form_rows", force: :cascade do |t|
@@ -228,6 +252,8 @@ ActiveRecord::Schema.define(version: 2018_11_07_035818) do
   add_foreign_key "mas_form_rows", "subjects"
   add_foreign_key "mmt_form_rows", "assessments"
   add_foreign_key "mmt_form_rows", "subjects"
+  add_foreign_key "moca_form_rows", "assessments"
+  add_foreign_key "moca_form_rows", "subjects"
   add_foreign_key "mrs_form_rows", "assessments"
   add_foreign_key "mrs_form_rows", "subjects"
   add_foreign_key "nihss_form_rows", "assessments"

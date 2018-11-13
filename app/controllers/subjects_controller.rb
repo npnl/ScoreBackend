@@ -23,7 +23,7 @@ class SubjectsController < ApplicationController
     @subjects =  @current_user.is_admin ? Subject.all : Subject.where(group: @current_group)
     output = []
     @subjects.each do |subject|
-      assessments = Assessment.where(subject: subject).select(:id, :date, :nihss, :fma, :wmft, :sis, :mrs, :mas, :mmt, :barthel, :arm, :user_id, :comments)
+      assessments = Assessment.where(subject: subject).select(:id, :date, :nihss, :fma, :wmft, :sis, :mrs, :mas, :mmt, :barthel, :arm, :moca, :user_id, :comments)
       if !assessments.empty?
         record = {subject_name: subject.name}
         record[:assessments] = assessments
@@ -49,7 +49,7 @@ class SubjectsController < ApplicationController
         group_output = {group_name: group_name}
         group_subjects = []
         subjects.each do |subject|
-          assessments = Assessment.where(subject_id: subject[:id]).select(:id, :date, :nihss, :fma, :wmft, :sis, :mrs, :mas, :mmt, :barthel, :arm, :user_id, :comments)
+          assessments = Assessment.where(subject_id: subject[:id]).select(:id, :date, :nihss, :fma, :wmft, :sis, :mrs, :mas, :mmt, :barthel, :arm, :moca, :user_id, :comments)
           if !assessments.empty?
             record = {subject_name: subject[:name]}
             record[:assessments] = assessments

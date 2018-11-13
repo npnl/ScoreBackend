@@ -12,7 +12,7 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def self.to_csv
-    extracted_columns = column_names - %w(id subject_id created_at updated_at assessment_id)
+    extracted_columns = column_names - %w(id subject_id created_at updated_at assessment_id deleted_at)
     all_columns = ['subject_name'] + extracted_columns + ['Assessed by']
     all_columns = all_columns.map(&:upcase)
     CSV.generate do |csv|
