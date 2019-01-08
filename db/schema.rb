@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_13_055756) do
+ActiveRecord::Schema.define(version: 2019_01_08_070810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2018_11_13_055756) do
     t.datetime "deleted_at"
     t.string "comments"
     t.boolean "moca", default: false
+    t.boolean "mal", default: false
     t.index ["subject_id"], name: "index_assessments_on_subject_id"
     t.index ["user_id"], name: "index_assessments_on_user_id"
   end
@@ -92,6 +93,22 @@ ActiveRecord::Schema.define(version: 2018_11_13_055756) do
     t.datetime "updated_at", null: false
     t.string "authentication_code"
     t.datetime "deleted_at"
+  end
+
+  create_table "mal_form_rows", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.bigint "assessment_id"
+    t.date "date"
+    t.string "activity_description"
+    t.integer "amount_scale"
+    t.integer "how_well_scale"
+    t.integer "if_not_why"
+    t.string "comments"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assessment_id"], name: "index_mal_form_rows_on_assessment_id"
+    t.index ["subject_id"], name: "index_mal_form_rows_on_subject_id"
   end
 
   create_table "mas_form_rows", force: :cascade do |t|
@@ -248,6 +265,8 @@ ActiveRecord::Schema.define(version: 2018_11_13_055756) do
   add_foreign_key "barthel_form_rows", "subjects"
   add_foreign_key "fma_form_rows", "assessments"
   add_foreign_key "fma_form_rows", "subjects"
+  add_foreign_key "mal_form_rows", "assessments"
+  add_foreign_key "mal_form_rows", "subjects"
   add_foreign_key "mas_form_rows", "assessments"
   add_foreign_key "mas_form_rows", "subjects"
   add_foreign_key "mmt_form_rows", "assessments"

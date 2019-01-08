@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :mrs_form
   resources :sis_form
   resources :moca_form
+  resources :mal_form
 
   get 'nihss/assessment/:id/nihss.csv' => 'nihss_form#download_data', defaults: { format: :csv }
   get 'fma/assessment/:id/fma.csv' => 'fma_form#download_data', defaults: { format: :csv }
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
   get 'mrs/assessment/:id/mrs.csv' => 'mrs_form#download_data', defaults: { format: :csv }
   get 'sis/assessment/:id/sis.csv' => 'sis_form#download_data', defaults: { format: :csv }
   get 'moca/assessment/:id/moca.csv' => 'moca_form#download_data', defaults: { format: :csv }
+  get 'mal/assessment/:id/mal.csv' => 'mal_form#download_data', defaults: { format: :csv }
 
   delete 'destroy_assessment' => 'assessments#destroy'
   put 'update_comments' => 'assessments#update_comments'
