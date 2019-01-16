@@ -34,6 +34,9 @@ Rails.application.routes.draw do
   get 'moca/assessment/:id/moca.csv' => 'moca_form#download_data', defaults: { format: :csv }
   get 'mal/assessment/:id/mal.csv' => 'mal_form#download_data', defaults: { format: :csv }
 
+  post 'reset_password/request_token' => 'reset_password#request_token'
+  post 'reset_password/update_password/:verification_token' => 'reset_password#update_password'
+
   delete 'destroy_assessment' => 'assessments#destroy'
   put 'update_comments' => 'assessments#update_comments'
 end

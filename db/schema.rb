@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_08_070810) do
+ActiveRecord::Schema.define(version: 2019_01_15_031046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,6 +192,15 @@ ActiveRecord::Schema.define(version: 2019_01_08_070810) do
     t.index ["subject_id"], name: "index_nihss_form_rows_on_subject_id"
   end
 
+  create_table "reset_passwords", force: :cascade do |t|
+    t.bigint "user_id"
+    t.datetime "requested_at"
+    t.string "reset_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reset_passwords_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string "access_token"
     t.datetime "created_at", null: false
@@ -277,6 +286,7 @@ ActiveRecord::Schema.define(version: 2019_01_08_070810) do
   add_foreign_key "mrs_form_rows", "subjects"
   add_foreign_key "nihss_form_rows", "assessments"
   add_foreign_key "nihss_form_rows", "subjects"
+  add_foreign_key "reset_passwords", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "sis_form_rows", "assessments"
   add_foreign_key "sis_form_rows", "subjects"
