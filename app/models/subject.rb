@@ -10,6 +10,7 @@ class Subject < ApplicationRecord
   has_many :nihss_form_rows
   has_many :sis_form_rows
   has_many :wmft_form_rows
+  has_many :moca_alternate_form_rows
 
   has_many :assessments
 

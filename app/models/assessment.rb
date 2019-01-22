@@ -9,6 +9,7 @@ class Assessment < ApplicationRecord
   has_many :sis_form_rows
   has_many :wmft_form_rows
   has_many :mal_form_rows
+  has_many :moca_alternate_form_rows
 
   belongs_to :subject
   belongs_to :user

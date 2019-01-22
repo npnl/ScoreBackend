@@ -37,6 +37,8 @@ class AssessmentsController < ApplicationController
         rows = MocaFormRow.where(assessment: assessment)
       when 'mal'
         rows = MalFormRow.where(assessment: assessment)
+      when 'moca_alternate'
+        rows = MocaAlternateFormRow.where(assessment: assessment)
       else
         render json: { errors: 'Wrong form type passes to delete'}, status: :unprocessable_entity and return
     end
@@ -44,7 +46,7 @@ class AssessmentsController < ApplicationController
       ApplicationRecord.transaction do
         rows.destroy_all
         assessment.update_attributes!(delete_params[:form_type] => false)
-        empty_assessments = Assessment.where(:nihss => false, :fma => false, :wmft => false, :sis => false, :mrs => false, :mas => false, :mmt => false, :barthel => false, :arm => false, :moca => false, :mal => false)
+        empty_assessments = Assessment.where(:nihss => false, :fma => false, :wmft => false, :sis => false, :mrs => false, :mas => false, :mmt => false, :barthel => false, :arm => false, :moca => false, :mal => false, :moca_alternate => false)
         empty_assessments.destroy_all
       end
     rescue ActiveRecord::RecordInvalid
